@@ -5,7 +5,6 @@ internal class TicketPriceMenu : Menu
   protected override void PrintMenu()
   {
     Console.WriteLine("");
-    Console.WriteLine("Navigate by entering numbers.");
     Console.WriteLine("0. Go back to main menu");
     Console.WriteLine("1. Get individual ticket price");
     Console.WriteLine("2. Get group ticket price");
