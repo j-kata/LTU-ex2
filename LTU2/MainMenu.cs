@@ -9,6 +9,7 @@ internal class MainMenu : Menu
     Console.WriteLine("0. Exit");
     Console.WriteLine("1. Get Ticket Price");
     Console.WriteLine("2. Repeat 10 times");
+    Console.WriteLine("3. Select third word");
     Console.WriteLine("");
   }
   protected override void HandleAction(string input)
@@ -23,6 +24,9 @@ internal class MainMenu : Menu
         break;
       case "2":
         new RepeatMenu().Show();
+        break;
+      case "3":
+        new SelectMenu().Show();
         break;
       default:
         InvalidInput();

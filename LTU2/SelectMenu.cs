@@ -1,8 +1,6 @@
-using System.Data;
-
 namespace LTU2;
 
-internal class RepeatMenu : Menu
+internal class SelectMenu : Menu
 {
   protected override void PrintMenu()
   {
@@ -20,7 +18,7 @@ internal class RepeatMenu : Menu
         ExitProgram();
         break;
       case "1":
-        RepeatText();
+        SelectWord();
         break;
       default:
         InvalidInput();
@@ -28,12 +26,14 @@ internal class RepeatMenu : Menu
     }
   }
 
-  private static void RepeatText(int count = 10)
+  private static void SelectWord(int num = 3)
   {
-    Console.WriteLine("Please enter text you want to repeat.");
+    Console.WriteLine("Please enter text (min 3 word).");
     var input = GetUserInput();
 
-    var repeated = Enumerable.Repeat(input, count).Select((item, index) => $"{index + 1}.{item}");
-    Console.WriteLine(string.Join(", ", repeated));
+    var words = input.Split(" ");
+    if (words.Length < num) return;
+
+    Console.WriteLine($"The word #{num} is {words[num - 1]}");
   }
 }
