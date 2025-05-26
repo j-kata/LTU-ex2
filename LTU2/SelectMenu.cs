@@ -31,7 +31,7 @@ internal class SelectMenu : Menu
     Console.WriteLine("Please enter text (min 3 word).");
     var input = GetUserInput();
 
-    var words = input.Split(" ");
+    var words = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
     if (words.Length < num) return;
 
     Console.WriteLine($"The word #{num} is {words[num - 1]}");
