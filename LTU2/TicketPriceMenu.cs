@@ -68,6 +68,10 @@ internal class TicketPriceMenu : Menu
     {
       return (0, "Invalid age");
     }
+    else if (age < 5)
+    {
+      return (0, "Free of charge");
+    }
     else if (age < 20)
     {
       return (80, "Child price: 80kr");
@@ -76,9 +80,13 @@ internal class TicketPriceMenu : Menu
     {
       return (120, "Standard price: 120kr");
     }
-    else
+    else if (age < 100)
     {
       return (90, "Senior price: 90kr");
+    }
+    else
+    {
+      return (0, "Free of charge");
     }
   }
 
