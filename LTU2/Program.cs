@@ -7,6 +7,6 @@ internal class Program
   private static bool IsRunning { get; set; } = true;
   static void Main(string[] args)
   {
-    new MainMenu().Show();
+    new MainMenu().Run();
   }
 }

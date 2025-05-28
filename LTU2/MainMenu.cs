@@ -2,31 +2,39 @@ namespace LTU2;
 
 internal class MainMenu : Menu
 {
-  protected override void PrintMenu()
+  private const string TicketPriceChoice = "1";
+  private const string RepeatWordChoice = "2";
+  private const string ThirdWordChoice = "3";
+  public MainMenu()
   {
-    Console.Clear();
-    Console.WriteLine("You've reached the main menu.\nNavigate by entering numbers to test different features.");
-    Console.WriteLine("0. Exit");
-    Console.WriteLine("1. Get Ticket Price");
-    Console.WriteLine("2. Repeat 10 times");
-    Console.WriteLine("3. Select third word");
-    Console.WriteLine("");
+    choices = new Dictionary<string, string>()
+    {
+      { ReturnChoice, "Exit" },
+      { TicketPriceChoice, "Get Ticket Price" },
+      { RepeatWordChoice, "Repeat 10 times" },
+      { ThirdWordChoice, "Select third word" },
+    };
   }
-  protected override void HandleAction(string input)
+  protected override string GetIntroText()
+  {
+    return "You've reached the main menu.\nNavigate by entering numbers to test different features.";
+  }
+
+  protected override void HandleInput(string input)
   {
     switch (input)
     {
-      case "0":
-        ExitProgram();
+      case ReturnChoice:
+        Close();
         break;
-      case "1":
-        new TicketPriceMenu().Show();
+      case TicketPriceChoice:
+        new TicketPriceMenu().Run();
         break;
-      case "2":
-        new RepeatMenu().Show();
+      case RepeatWordChoice:
+        new RepeatMenu().Run();
         break;
-      case "3":
-        new SelectMenu().Show();
+      case ThirdWordChoice:
+        new SelectMenu().Run();
         break;
       default:
         InvalidInput();

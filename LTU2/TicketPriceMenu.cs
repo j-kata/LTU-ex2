@@ -2,27 +2,30 @@ namespace LTU2;
 
 internal class TicketPriceMenu : Menu
 {
-  protected override void PrintMenu()
+  private const string IndividualTicketChoice = "1";
+  private const string GroupTicketChoice = "2";
+  public TicketPriceMenu()
   {
-    Console.WriteLine("");
-    Console.WriteLine("0. Go back to main menu");
-    Console.WriteLine("1. Get individual ticket price");
-    Console.WriteLine("2. Get group ticket price");
-    Console.WriteLine("");
+    choices = new Dictionary<string, string>()
+    {
+      { ReturnChoice, "Go back to main menu" },
+      { IndividualTicketChoice, "Get individual ticket price" },
+      { GroupTicketChoice, "Get group ticket price" }
+    };
   }
 
-  protected override void HandleAction(string input)
+  protected override void HandleInput(string input)
   {
     switch (input)
     {
-      case "1":
+      case ReturnChoice:
+        Close();
+        break;
+      case IndividualTicketChoice:
         GetIndividualTicketPrice();
         break;
-      case "2":
+      case GroupTicketChoice:
         GetGroupTicketPrice();
-        break;
-      case "0":
-        ExitProgram();
         break;
       default:
         InvalidInput();
@@ -33,7 +36,7 @@ internal class TicketPriceMenu : Menu
   private void GetIndividualTicketPrice()
   {
     Console.WriteLine("Please enter age.");
-    var input = GetUserInput();
+    var input = GetInput();
 
     if (!ValidateNum(input, out var age)) return;
 
@@ -44,7 +47,7 @@ internal class TicketPriceMenu : Menu
   private void GetGroupTicketPrice()
   {
     Console.WriteLine("Please enter number of people.");
-    var input = GetUserInput();
+    var input = GetInput();
 
     if (!ValidateNum(input, out var count)) return;
 
@@ -53,7 +56,7 @@ internal class TicketPriceMenu : Menu
     Console.WriteLine("Please enter each age on separate line.");
     for (var i = 0; i < count; i++)
     {
-      var ageInput = GetUserInput();
+      var ageInput = GetInput();
       if (!ValidateNum(ageInput, out var age)) return;
 
       totalPrice += GetPrice(age).num;
