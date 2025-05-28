@@ -38,7 +38,7 @@ internal class MainMenu : Menu
         new RepeatMenu(ui).Run();
         break;
       case MainMenuOptions.ThirdWordChoice:
-        new SelectMenu(ui).Run();
+        new SelectWordMenu(ui).Run();
         break;
       default:
         InvalidInput();

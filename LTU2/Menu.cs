@@ -82,4 +82,16 @@ internal class Menu(IUI ui)
   {
     Console.WriteLine("Invalid input. Try again.");
   }
+
+  protected string PromptUntilValid(string promt, Func<string, bool> validator)
+  {
+    while (true)
+    {
+      ui.Out(promt);
+      var input = ui.In();
+      if (validator(input)) return input;
+      InvalidInput();
+      ui.Out();
+    }
+  }
 }
