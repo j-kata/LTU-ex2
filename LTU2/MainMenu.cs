@@ -35,7 +35,7 @@ internal class MainMenu : Menu
         new TicketPriceMenu(ui).Run();
         break;
       case MainMenuOptions.RepeatWordChoice:
-        new RepeatMenu(ui).Run();
+        new RepeatWordMenu(ui).Run();
         break;
       case MainMenuOptions.ThirdWordChoice:
         new SelectWordMenu(ui).Run();
