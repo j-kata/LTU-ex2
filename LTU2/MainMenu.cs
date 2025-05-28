@@ -6,11 +6,14 @@ internal class MainMenuOptions
 {
   public const string TicketPriceChoice = "1";
   public const string RepeatWordChoice = "2";
-  public const string ThirdWordChoice = "3";
+  public const string SelectWordChoice = "3";
 }
 
 internal class MainMenu : Menu
 {
+  private const int RepeatTimes = 10;
+  private const int SelectWordIndex = 3;
+
   public MainMenu(IUI ui) : base(ui)
   {
     introText = "You've reached the main menu.\nNavigate by entering numbers to test different features.";
@@ -19,8 +22,8 @@ internal class MainMenu : Menu
     {
       { DefaultMenuOptions.ReturnOption, "Exit" },
       { MainMenuOptions.TicketPriceChoice, "Get Ticket Price" },
-      { MainMenuOptions.RepeatWordChoice, "Repeat 10 times" },
-      { MainMenuOptions.ThirdWordChoice, "Select third word" },
+      { MainMenuOptions.RepeatWordChoice, $"Repeat {RepeatTimes} times" },
+      { MainMenuOptions.SelectWordChoice, $"Select word #{SelectWordIndex}" },
     };
   }
 
@@ -35,10 +38,10 @@ internal class MainMenu : Menu
         new TicketPriceMenu(ui).Run();
         break;
       case MainMenuOptions.RepeatWordChoice:
-        new RepeatWordMenu(ui).Run();
+        new RepeatWordMenu(ui, RepeatTimes).Run();
         break;
-      case MainMenuOptions.ThirdWordChoice:
-        new SelectWordMenu(ui).Run();
+      case MainMenuOptions.SelectWordChoice:
+        new SelectWordMenu(ui, SelectWordIndex).Run();
         break;
       default:
         InvalidInput();
