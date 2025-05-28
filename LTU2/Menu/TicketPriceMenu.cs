@@ -70,8 +70,8 @@ internal class TicketPriceMenu : Menu
     string prompt = "Please enter age.";
     var age = PromptUntilValid(prompt, ValidatePositiveNum);
 
-    var (_, desc) = GetPrice(age.Value);
-    ui.Out($"Your ticket:\n{desc}");
+    var (num, desc) = GetPrice(age.Value);
+    ui.Out($"Your ticket:\n{desc}: {num}kr");
   }
 
   private void GetGroupTicketPrice()
@@ -92,9 +92,9 @@ internal class TicketPriceMenu : Menu
   {
     if (age < 0) return (0, "Invalid age");
     if (age < 5) return (0, "Free of charge");
-    if (age < 20) return (80, "Child price: 80kr");
-    if (age < 64) return (120, "Standard price: 120kr");
-    if (age < 100) return (90, "Senior price: 90kr");
+    if (age < 20) return (80, "Child price");
+    if (age < 64) return (120, "Standard price");
+    if (age < 100) return (90, "Senior price");
     return (0, "Free of charge");
   }
 }
