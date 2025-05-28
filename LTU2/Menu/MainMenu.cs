@@ -1,6 +1,6 @@
 using LTU2.UI;
 
-namespace LTU2;
+namespace LTU2.Menu;
 
 internal class MainMenuOptions
 {

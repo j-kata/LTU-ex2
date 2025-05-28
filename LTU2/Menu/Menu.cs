@@ -1,6 +1,6 @@
 using LTU2.UI;
 
-namespace LTU2;
+namespace LTU2.Menu;
 
 internal class DefaultMenuOptions
 {
@@ -78,18 +78,24 @@ internal class Menu(IUI ui)
   protected virtual void HandleDefault() { }
 
 
-  protected static void InvalidInput()
+  // standard error message
+  protected void InvalidInput()
   {
-    Console.WriteLine("Invalid input. Try again.");
+    ui.Out("Invalid input. Try again.");
   }
 
-  protected string PromptUntilValid(string promt, Func<string, bool> validator)
+  // show prompt until the validation function returns some result, then return this result
+  // TODO: probably move to some util class
+  protected T PromptUntilValid<T>(string promt, Func<string, int, T?> validator, int arg = 0)
   {
     while (true)
     {
       ui.Out(promt);
       var input = ui.In();
-      if (validator(input)) return input;
+
+      var result = validator(input, arg);
+      if (result != null) return result;
+
       InvalidInput();
       ui.Out();
     }
