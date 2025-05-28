@@ -2,12 +2,12 @@ namespace LTU2.UI;
 
 internal class ConsoleUI : IUI
 {
-  public string Input()
+  public string In()
   {
-    return Console.ReadLine() ?? string.Empty;
+    return Console.ReadLine()?.Trim() ?? string.Empty;
   }
 
-  public void Output(string line)
+  public void Out(string line)
   {
     Console.WriteLine(line);
   }

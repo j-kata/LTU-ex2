@@ -1,11 +1,13 @@
+using LTU2.UI;
+
 namespace LTU2;
 
-internal class SelectMenu : Menu
+internal class SelectMenu(IUI ui) : Menu(ui)
 {
-  protected override void HandleTextInput()
+  protected override void HandleDefault()
   {
     Console.WriteLine("Please enter text (min 3 word).");
-    var input = GetInput();
+    var input = ui.In();
 
     var words = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
     if (words.Length < 3) return;

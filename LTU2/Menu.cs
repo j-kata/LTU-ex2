@@ -1,58 +1,66 @@
+using LTU2.UI;
+
 namespace LTU2;
 
-internal class Menu
+internal class DefaultMenuOptions
 {
-  private bool IsRunning { get; set; } = true;
-  protected const string ReturnChoice = "0";
-  protected const string EnterTextChoice = "1";
+  public const string ReturnOption = "0";
+  public const string DefaultOption = "1";
+}
 
-  protected Dictionary<string, string> choices = new Dictionary<string, string>()
+internal class Menu(IUI ui)
+{
+  protected IUI ui = ui;
+  private bool IsRunning { get; set; } = true;
+
+  // default menu title
+  protected string introText = "== Menu ==";
+
+  // default menu
+  protected Dictionary<string, string> choices = new()
   {
-    { ReturnChoice, "Go back to main menu" },
-    { EnterTextChoice, "Enter Text" },
+    { DefaultMenuOptions.ReturnOption, "Go back to main menu" },
+    { DefaultMenuOptions.DefaultOption, "Enter Text" },
   };
 
   // main loop
   public void Run()
   {
-    Console.Write(GetIntroText());
     while (IsRunning)
     {
       // show menu
       Show();
 
       // get input
-      var input = GetInput();
+      var input = ui.In();
 
       // handle input
       HandleInput(input);
     }
   }
 
-  protected virtual string GetIntroText()
-  {
-    return "== Menu ==";
-  }
-
   // construct menu outline from class data
   protected virtual void Show()
   {
-    Console.WriteLine();
+    ui.Out();
+    ui.Out(introText);
+
     foreach (var choice in choices)
-    {
-      Console.WriteLine($"{choice.Key}. {choice.Value}");
-    }
-    Console.WriteLine();
+      ui.Out($"{choice.Key}. {choice.Value}");
+
+    ui.Out();
   }
+
+  // default input handle
   protected virtual void HandleInput(string input)
   {
     switch (input)
     {
-      case ReturnChoice:
+      case DefaultMenuOptions.ReturnOption:
         Close();
         break;
-      case EnterTextChoice:
-        HandleTextInput();
+      case DefaultMenuOptions.DefaultOption:
+        HandleDefault();
         break;
       default:
         InvalidInput();
@@ -60,19 +68,15 @@ internal class Menu
     }
   }
 
-  // exit main loop
+  // to exit main loop
   protected void Close()
   {
     IsRunning = false;
   }
 
-  protected virtual void HandleTextInput() { }
+  // handle default menu's function
+  protected virtual void HandleDefault() { }
 
-  protected static string GetInput()
-  {
-    var input = Console.ReadLine();
-    return input == null ? "" : input.Trim();
-  }
 
   protected static void InvalidInput()
   {

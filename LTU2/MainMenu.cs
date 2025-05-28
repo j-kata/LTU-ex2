@@ -1,40 +1,44 @@
+using LTU2.UI;
+
 namespace LTU2;
+
+internal class MainMenuOptions
+{
+  public const string TicketPriceChoice = "1";
+  public const string RepeatWordChoice = "2";
+  public const string ThirdWordChoice = "3";
+}
 
 internal class MainMenu : Menu
 {
-  private const string TicketPriceChoice = "1";
-  private const string RepeatWordChoice = "2";
-  private const string ThirdWordChoice = "3";
-  public MainMenu()
+  public MainMenu(IUI ui) : base(ui)
   {
+    introText = "You've reached the main menu.\nNavigate by entering numbers to test different features.";
+
     choices = new Dictionary<string, string>()
     {
-      { ReturnChoice, "Exit" },
-      { TicketPriceChoice, "Get Ticket Price" },
-      { RepeatWordChoice, "Repeat 10 times" },
-      { ThirdWordChoice, "Select third word" },
+      { DefaultMenuOptions.ReturnOption, "Exit" },
+      { MainMenuOptions.TicketPriceChoice, "Get Ticket Price" },
+      { MainMenuOptions.RepeatWordChoice, "Repeat 10 times" },
+      { MainMenuOptions.ThirdWordChoice, "Select third word" },
     };
-  }
-  protected override string GetIntroText()
-  {
-    return "You've reached the main menu.\nNavigate by entering numbers to test different features.";
   }
 
   protected override void HandleInput(string input)
   {
     switch (input)
     {
-      case ReturnChoice:
+      case DefaultMenuOptions.ReturnOption:
         Close();
         break;
-      case TicketPriceChoice:
-        new TicketPriceMenu().Run();
+      case MainMenuOptions.TicketPriceChoice:
+        new TicketPriceMenu(ui).Run();
         break;
-      case RepeatWordChoice:
-        new RepeatMenu().Run();
+      case MainMenuOptions.RepeatWordChoice:
+        new RepeatMenu(ui).Run();
         break;
-      case ThirdWordChoice:
-        new SelectMenu().Run();
+      case MainMenuOptions.ThirdWordChoice:
+        new SelectMenu(ui).Run();
         break;
       default:
         InvalidInput();

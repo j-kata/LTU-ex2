@@ -1,16 +1,21 @@
+using LTU2.UI;
 namespace LTU2;
+
+internal class TicketPriceMenuOptions
+{
+  public const string IndividualOption = "1";
+  public const string GroupOption = "2";
+}
 
 internal class TicketPriceMenu : Menu
 {
-  private const string IndividualTicketChoice = "1";
-  private const string GroupTicketChoice = "2";
-  public TicketPriceMenu()
+  public TicketPriceMenu(IUI ui) : base(ui)
   {
     choices = new Dictionary<string, string>()
     {
-      { ReturnChoice, "Go back to main menu" },
-      { IndividualTicketChoice, "Get individual ticket price" },
-      { GroupTicketChoice, "Get group ticket price" }
+      { DefaultMenuOptions.ReturnOption, "Go back to main menu" },
+      { TicketPriceMenuOptions.IndividualOption, "Get individual ticket price" },
+      { TicketPriceMenuOptions.GroupOption, "Get group ticket price" }
     };
   }
 
@@ -18,13 +23,13 @@ internal class TicketPriceMenu : Menu
   {
     switch (input)
     {
-      case ReturnChoice:
+      case DefaultMenuOptions.ReturnOption:
         Close();
         break;
-      case IndividualTicketChoice:
+      case TicketPriceMenuOptions.IndividualOption:
         GetIndividualTicketPrice();
         break;
-      case GroupTicketChoice:
+      case TicketPriceMenuOptions.GroupOption:
         GetGroupTicketPrice();
         break;
       default:
@@ -36,7 +41,7 @@ internal class TicketPriceMenu : Menu
   private void GetIndividualTicketPrice()
   {
     Console.WriteLine("Please enter age.");
-    var input = GetInput();
+    var input = ui.In();
 
     if (!ValidateNum(input, out var age)) return;
 
@@ -47,7 +52,7 @@ internal class TicketPriceMenu : Menu
   private void GetGroupTicketPrice()
   {
     Console.WriteLine("Please enter number of people.");
-    var input = GetInput();
+    var input = ui.In();
 
     if (!ValidateNum(input, out var count)) return;
 
@@ -56,7 +61,7 @@ internal class TicketPriceMenu : Menu
     Console.WriteLine("Please enter each age on separate line.");
     for (var i = 0; i < count; i++)
     {
-      var ageInput = GetInput();
+      var ageInput = ui.In();
       if (!ValidateNum(ageInput, out var age)) return;
 
       totalPrice += GetPrice(age).num;
